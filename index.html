@@ -39,13 +39,19 @@
     <!-- Text Box -->
     <textarea id="inputText" placeholder="Type your text here..."></textarea>
     
-    <!-- Send Button -->
-    <button onclick="sendToDiscord()">Send to Discord</button>
+    <!-- Submit Button -->
+    <button id="submitButton">Send to Discord</button>
 
     <script>
-        function sendToDiscord() {
+        document.getElementById('submitButton').addEventListener('click', function() {
             // Get the input text
             var text = document.getElementById('inputText').value;
+
+            // Check if there's any text entered
+            if (text.trim() === "") {
+                alert("Please enter some text!");
+                return;
+            }
 
             // Define your Discord Webhook URL here
             var webhookUrl = "https://discord.com/api/webhooks/1303485280338186382/LlRNWb3ho2sSImfbddJT00Y2nZJoRrAtjWViAQlxzLi-2pFdRhFcxms3PPOveW94B0MX"; // Replace with your actual webhook URL
@@ -67,7 +73,10 @@
                 }
             };
             xhr.send(payload);
-        }
+
+            // Clear the text area after sending
+            document.getElementById('inputText').value = "";
+        });
     </script>
 
 </body>
