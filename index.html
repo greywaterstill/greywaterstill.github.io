@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Text Box</title>
+    <title>Send Text to Discord Webhook</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,14 +17,58 @@
             border: 2px solid #ccc;
             border-radius: 4px;
         }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #7289da;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5a6eb1;
+        }
     </style>
 </head>
 <body>
 
     <h1>Input Your Text Below</h1>
     
-    <!-- Simple Text Box -->
-    <textarea placeholder="Type your text here..."></textarea>
+    <!-- Text Box -->
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    
+    <!-- Send Button -->
+    <button onclick="sendToDiscord()">Send to Discord</button>
+
+    <script>
+        function sendToDiscord() {
+            // Get the input text
+            var text = document.getElementById('inputText').value;
+
+            // Define your Discord Webhook URL here
+            var webhookUrl = "https://discord.com/api/webhooks/1303485280338186382/LlRNWb3ho2sSImfbddJT00Y2nZJoRrAtjWViAQlxzLi-2pFdRhFcxms3PPOveW94B0MX"; // Replace with your actual webhook URL
+
+            // Create the payload
+            var payload = JSON.stringify({
+                content: text // Send the text as the content of the message
+            });
+
+            // Create the POST request
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", webhookUrl, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status === 204) {
+                    alert("Text sent to Discord!");
+                } else {
+                    alert("Failed to send text.");
+                }
+            };
+            xhr.send(payload);
+        }
+    </script>
 
 </body>
 </html>
