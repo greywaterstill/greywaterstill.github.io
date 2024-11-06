@@ -71,13 +71,6 @@
                 },
                 body: payload
             })
-            .then(response => {
-                if (response.ok) {
-                    alert("Data sent to Pipedream!");
-                } else {
-                    alert("Failed to send data.");
-                }
-            })
             .catch(error => {
                 alert("Error: " + error);
             });
