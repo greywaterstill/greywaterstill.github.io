@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send text to webhook</title>
+    <title>Send Text to Pipedream</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,144 +11,77 @@
         }
         textarea {
             width: 100%;
-            height: 200px;
+            height: 100px;
             font-size: 16px;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 4px;
+            margin-bottom: 10px;
         }
         button {
-            margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #7289da;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #5a6eb1;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 8px;
-            border: 1px solid #ccc;
-            text-align: center;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
-    <h1>Text Key Capture</h1>
+    <h1>Send Text to Pipedream</h1>
     
     <!-- Text Box -->
-    <textarea id="inputText" placeholder="Start typing..."></textarea>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
     
-    <!-- Start Capture Button -->
-    <button id="startButton">Start Capture</button>
-    
-    <!-- Table to capture keypresses -->
-    <table id="keyTable">
-        <thead>
-            <tr>
-                <th>Key</th>
-                <th>Character</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <!-- Submit Button -->
+    <button id="submitButton">Send to Pipedream</button>
 
     <script>
-        let captureInterval;
-        let isCapturing = false;
+        document.getElementById('submitButton').addEventListener('click', function() {
+            // Get the input text
+            const text = document.getElementById('inputText').value;
 
-        // Function to add a row to the table
-        function addKeyToTable(key, char) {
-            const table = document.getElementById('keyTable').getElementsByTagName('tbody')[0];
-            const row = table.insertRow();
-            const keyCell = row.insertCell(0);
-            const charCell = row.insertCell(1);
-            keyCell.textContent = key;
-            charCell.textContent = char;
-        }
+            // Check if there's any text entered
+            if (text.trim() === "") {
+                alert("Please enter some text!");
+                return;
+            }
 
-        // Function to send table data to the Discord webhook
-        function sendToWebhook(content) {
-            // Define your Discord Webhook URL here
-            var webhookUrl = "https://discord.com/api/webhooks/1303485280338186382/LlRNWb3ho2sSImfbddJT00Y2nZJoRrAtjWViAQlxzLi-2pFdRhFcxms3PPOveW94B0MX"; // Replace with your actual webhook URL
+            // Your Pipedream webhook URL
+            const webhookUrl = "https://eottjwraz9o9qlm.m.pipedream.net";
 
             // Create the payload
-            var payload = JSON.stringify({
-                content: content // Send the content of the table as the message
+            const payload = JSON.stringify({
+                content: text // Sends the text as the content of the message
             });
 
             // Create the POST request
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", webhookUrl, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.onload = function() {
-                if (xhr.status === 204) {
-                    alert("Text sent to Discord!");
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: payload
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Text sent to Pipedream!");
                 } else {
                     alert("Failed to send text.");
                 }
-            };
-            xhr.send(payload);
-        }
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            });
 
-        // Function to start capturing keys
-        function startCapturing() {
-            if (isCapturing) return; // Don't start multiple captures
-            isCapturing = true;
-            
-            // Clear any existing table data
-            document.getElementById('keyTable').getElementsByTagName('tbody')[0].innerHTML = "";
-
-            // Start a 10-second capture
-            let startTime = Date.now();
-            captureInterval = setInterval(function() {
-                if (Date.now() - startTime >= 10000) { // 10 seconds passed
-                    clearInterval(captureInterval);
-                    isCapturing = false;
-
-                    // Collect table content
-                    const table = document.getElementById('keyTable');
-                    const rows = table.getElementsByTagName('tr');
-                    let content = "";
-                    for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
-                        const cells = rows[i].getElementsByTagName('td');
-                        content += `Key: ${cells[0].textContent}, Char: ${cells[1].textContent}\n`;
-                    }
-
-                    // Send the collected data to Discord
-                    if (content.trim() !== "") {
-                        sendToWebhook(content);
-                    }
-
-                    // Reset the table for the next capture
-                    document.getElementById('keyTable').getElementsByTagName('tbody')[0].innerHTML = "";
-
-                }
-            }, 100); // Check every 100ms
-        }
-
-        // Start listening for key presses
-        document.getElementById('inputText').addEventListener('keydown', function(event) {
-            if (isCapturing) {
-                const key = event.key;
-                const char = key === " " ? "Space" : key;  // Handle space key specially
-                addKeyToTable(key, char);
-            }
-        });
-
-        // Start capture when the button is clicked
-        document.getElementById('startButton').addEventListener('click', function() {
-            startCapturing();
+            // Clear the text area after sending
+            document.getElementById('inputText').value = "";
         });
     </script>
 
