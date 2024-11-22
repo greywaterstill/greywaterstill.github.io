@@ -34,6 +34,11 @@
     "imgSrc": "projects/among-us/red.png",
     "title": "Among Us"
   },
+    {
+    "link": "projects/Finn%20%26%20Bones/index.html",
+    "imgSrc": "projects/Finn%20%26%20Bones/img/finn.jpg",
+    "title": "Finn & Bones"
+  },
   {
     "link": "projects/avalanche/index.html",
     "imgSrc": "projects/avalanche/avalanche.png",
