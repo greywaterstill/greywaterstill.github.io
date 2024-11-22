@@ -34,11 +34,6 @@
     "imgSrc": "projects/among-us/red.png",
     "title": "Among Us"
   },
-    {
-    "link": "projects/FinnAndBones/index.html",
-    "imgSrc": "projects/FinnAndBones/finn.jpg",
-    "title": "Finn & Bones"
-  },
   {
     "link": "projects/avalanche/index.html",
     "imgSrc": "projects/avalanche/avalanche.png",
@@ -283,6 +278,11 @@
     "link": "projects/flashtetris/index.html",
     "imgSrc": "projects/flashtetris/flashtetris.png",
     "title": "Flash Tetris"
+  },
+  {
+    "link": "projects/FinnAndBones/index.html",
+    "imgSrc": "projects/FinnAndBones/finn.jpg",
+    "title": "Finn & Bones"
   },
   {
     "link": "projects/game-inside/index.html",
