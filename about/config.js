@@ -4,7 +4,7 @@ const config = {
   displayName: "local",
   description: "me",
   backgroundVideo: "default.mp4",
-  blurIntensity: "5px", // Add blur intensity here (e.g., '10px' for a Gaussian blur)
+  blurIntensity: "7px", // Add blur intensity here (e.g., '10px' for a Gaussian blur)
 };
 
 // Apply configuration to the page
