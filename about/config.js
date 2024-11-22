@@ -3,7 +3,7 @@ const config = {
   pageTitle: "bio",
   displayName: "local",
   description: "me",
-  backgroundVideo: "bg.mp4",
+  backgroundVideo: "default.mp4",
   blurIntensity: "7px", // Add blur intensity here (e.g., '10px' for a Gaussian blur)
 };
 
