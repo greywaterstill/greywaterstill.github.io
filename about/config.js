@@ -1,7 +1,7 @@
 // Configuration object for the bio page
 const config = {
   pageTitle: "bio",
-  displayName: "local",
+  displayName: "name",
   description: "me",
   backgroundVideo: "bg2.mp4",
   blurIntensity: "7px", // Add blur intensity here (e.g., '10px' for a Gaussian blur)
