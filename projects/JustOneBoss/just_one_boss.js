@@ -6068,9 +6068,9 @@ var SDL = {
         34: 1102,
         35: 1101,
         36: 1098,
-        87: 1106, // W -> Up
-        65: 1104, // A -> Left
-        83: 1105, // S -> Down
+        87: 1106,  // W -> Up
+        65: 1104,  // A -> Left
+        83: 1105,  // S -> Down
         68: 1103,  // D -> Right
         44: 316,
         45: 1097,
@@ -53112,10 +53112,11 @@ var asm = (function(global, env, buffer) {
                                 m = k
                         }
                         while (0);
-                        k = (j | 0) == 1104 ? 276 : j;
-                        l = (k | 0) == 1103 ? 275 : k;
-                        k = (l | 0) == 1106 ? 273 : l;
-                        l = (k | 0) == 1105 ? 274 : k;
+                        k = (j | 0) == 65 ? 276 : j;   // If 'A' is pressed, set k to 276
+                        l = (k | 0) == 68 ? 275 : k;    // If 'D' is pressed, set l to 275
+                        k = (l | 0) == 87 ? 273 : l;    // If 'W' is pressed, set k to 273
+                        l = (k | 0) == 83 ? 274 : k;    // If 'S' is pressed, set l to 274
+
                         if ((c[d >> 2] | 0) != 768) {
                             if ((l | 0) >= 512) break a;
                             a[4207180 + l >> 0] = 0;
